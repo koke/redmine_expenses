@@ -1,0 +1,49 @@
+<div class="contextual">
+<a class="icon icon-add" href="/expenses/new"><%= l(:expenses_add) %></a>
+</div>
+<h2><%= l(:expenses_title) %></h2>
+
+<% form_tag({:action => 'edit'}) do -%>	
+<table class="list expenses">
+    <thead><tr>
+        <th>
+          <%= link_to_function(image_tag('toggle_check.png'), "toggleCheckboxesBySelector('.expense input')",
+                                                              :title => "#{l(:button_check_all)}/#{l(:button_uncheck_all)}") %>
+        </th>
+        <%= content_tag("th", l(:expense_paid)) %>
+        <%= content_tag("th", l(:expense_description), :class => "description") %>
+        <%= content_tag("th", l(:expense_price)) %>
+        <%= content_tag("th", l(:expense_user)) %>
+        <%= content_tag("th", l(:expense_date)) %>
+	</tr></thead>
+	<tbody>
+	<% @expenses.each do |expense| -%>
+	<tr id="expense-<%= expense.id %>" class="<%= cycle('odd', 'even') %> expense">
+	    <td class="checkbox"><%= check_box_tag("ids[]", expense.id, false, :id => nil) %></td>
+	    <td class='paid'><%= image_tag (expense.paid ? 'true.png' : 'false.png'), :style => "vertical-align:bottom;" %></td>
+	    <%= content_tag 'td', expense.description, :class => 'description' %>
+	    <%= content_tag 'td', expense.price.to_s + ' €', :class => 'price' %>
+	    <%= content_tag 'td', expense.username, :class => 'user' %>
+	    <%= content_tag 'td', format_date(expense.expense_date), :class => 'date' %>
+	</tr>
+	<% end -%>
+	</tbody>
+</table>
+<% if @manager %>
+<%= submit_tag l(:pay_button), :name => "pay" %>
+&nbsp;&nbsp;&nbsp;<%= submit_tag l(:unpay_button), :name => "unpay" %>
+<% else %>
+<%= submit_tag l(:delete_button), :name => "delete" %>
+<% end %>
+<% end -%>
+
+<% content_for :sidebar do %>
+<% if @manager %>
+<h3><%= l(:expenses_title) %></h3>
+<%= link_to l(:expenses_report), :controller => 'expenses', :action => 'report' %><br />
+<% end %>
+<% end %>
+
+<% content_for :header_tags do %>
+    <%= stylesheet_link_tag "expenses.css", :plugin => "redmine_expenses", :media => 'all' %>
+<% end %>

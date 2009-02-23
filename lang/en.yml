@@ -1,0 +1,14 @@
+expenses_title: Expenses
+expenses_add: Add expense
+expenses_successful_update: Expense updated sucessfully
+field_expense_date: Date
+field_price: Price
+expense_paid: Paid
+expense_description: Description
+expense_user: Employee
+expense_date: Date
+expense_price: Price
+delete_button: Delete
+pay_button: Pay
+unpay_button: Unpay
+expenses_report: Expenses report

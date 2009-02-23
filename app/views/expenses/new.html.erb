@@ -1,0 +1,13 @@
+<h2><%= l(:expenses_add) %></h2>
+<% labelled_tabular_form_for :expense, @expense, :url => { :action => "new" } do |f| %>
+
+<%= error_messages_for 'expense' %>
+
+<div class="box">
+<p><%= f.text_field :description, :required => true, :size => 100  %></p>
+<p><%= f.text_field :expense_date, :required => true, :size => 10 %><%= calendar_for('expense_expense_date') %></p>
+<p><%= f.text_field :price, :required => true, :size => 6  %> €</p>
+</div>
+
+<%= submit_tag l(:button_create) %>
+<% end %>

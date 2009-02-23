@@ -1,0 +1,15 @@
+<h2><%= l(:expenses_report) %></h2>
+<table class="list expenses">
+    <thead><tr>
+        <%= content_tag("th", l(:expense_user)) %>
+        <%= content_tag("th", l(:expense_price)) %>
+  	</tr></thead>
+  	<tbody>
+  	<% @user_expenses.each do |user,price| -%>
+  	<tr class="<%= cycle('odd', 'even') %> expense">
+  	    <%= content_tag 'td', user, :class => 'user' %>
+  	    <%= content_tag 'td', price.to_s + ' €', :class => 'price' %>
+  	</tr>
+  	<% end -%>
+  	</tbody>
+</table>
